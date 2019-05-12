@@ -1,5 +1,7 @@
 package com.example.yourassistant;
 
+import android.content.Intent;
+import android.speech.tts.Voice;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +36,8 @@ public class Login extends AppCompatActivity {
                 {
                     Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                     success=true;
+                    Intent mainScreen = new Intent(Login.this, VoiceControl.class);
+                    startActivity(mainScreen);
                 } else {
                     Toast.makeText(Login.this, "Tên đăng nhập hoặc mật khẩu sai", Toast.LENGTH_SHORT).show();
                     success=false;
