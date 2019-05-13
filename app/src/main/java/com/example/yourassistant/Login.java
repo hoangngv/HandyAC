@@ -1,6 +1,9 @@
 package com.example.yourassistant;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.speech.tts.Voice;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,11 +16,14 @@ public class Login extends AppCompatActivity {
     EditText edt_user, edt_password;
     Button btn_login;
     boolean success=false;
+    private BroadcastReceiver myReceiver=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        myReceiver = new MyReceiver();
+        broadcastIntent();
         executeLogin();
     }
 
@@ -44,5 +50,9 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void broadcastIntent() {
+        registerReceiver(myReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 }
