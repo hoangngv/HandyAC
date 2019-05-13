@@ -5,37 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+
     android:orientation="vertical"
     tools:context=".Login">
 
     <ImageView
         android:src="@drawable/icon_ac_trans"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="WELCOME TO AC CONTROLLER"
-        android:textSize="30dp" />
     <EditText
         android:layout_marginTop="20dp"
         android:hint="tên người dùng"
         android:id="@+id/editusername"
+        android:textColor="@color/black"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:layout_marginTop="20dp"
         android:hint="mật khẩu"
+        android:textColor="@color/black"
         android:id="@+id/editpassword"
         android:inputType="textPassword"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -45,7 +46,10 @@
             android:id="@+id/loginbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đăng nhập" />
+            android:textAllCaps="false"
+            android:background="@drawable/custom_button"
+            android:text="Đăng nhập"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
 </LinearLayout>

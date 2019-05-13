@@ -2,6 +2,7 @@ package com.example.yourassistant;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -25,6 +26,7 @@ public class VoiceControl extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.voice_control);
         final String VN_lang="vi-VN";
         textView = findViewById(R.id.txtView);
