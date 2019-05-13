@@ -31,7 +31,7 @@ public class VoiceControl extends AppCompatActivity {
         final String VN_lang="vi-VN";
         textView = findViewById(R.id.txtView);
         micButton = findViewById(R.id.imageButton);
-        inpTextView = findViewById(R.id.inputTextView);
+        //inpTextView = findViewById(R.id.inputTextView);
         micButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
