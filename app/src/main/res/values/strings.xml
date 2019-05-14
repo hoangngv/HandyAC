@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">yourAssistant</string>
-    <string name="welcome">Xin chào, </string>
+    <string name="welcome">Xin chào, nvhoang</string>
     <string name="pressMicro">Nhấn biểu tượng micro dưới đây để ra lệnh bằng giọng nói</string>
     <string name="state">Trạng thái điều hòa trong phòng bạn hiện tại</string>
+    <string name="ac_temperature">Nhiệt độ điều hòa: </string>
+    <string name="real_temperature">Nhiệt độ thực tế trong phòng: </string>
 </resources>

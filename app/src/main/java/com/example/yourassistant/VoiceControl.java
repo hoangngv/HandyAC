@@ -29,8 +29,8 @@ public class VoiceControl extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.voice_control);
         final String VN_lang="vi-VN";
-        textView = findViewById(R.id.txtView);
-        micButton = findViewById(R.id.imageButton);
+        textView = findViewById(R.id.mic);
+        micButton = findViewById(R.id.micCommand);
         //inpTextView = findViewById(R.id.inputTextView);
         micButton.setOnClickListener(new View.OnClickListener() {
             @Override
