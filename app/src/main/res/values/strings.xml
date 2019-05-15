@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">yourAssistant</string>
+    <string name="app_name">HandyAC</string>
     <string name="welcome">Xin chào, nvhoang</string>
     <string name="pressMicro">Nhấn biểu tượng micro dưới đây để ra lệnh bằng giọng nói</string>
     <string name="state">Trạng thái điều hòa trong phòng bạn hiện tại</string>
