@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -66,7 +67,7 @@ public class VoiceControl extends AppCompatActivity {
 
     private void confirmCommand(String inp)
     {
-        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(this);
+        AlertDialog.Builder confirmDialog = new AlertDialog.Builder(VoiceControl.this, R.style.MyDialogTheme);
         confirmDialog.setTitle("Yêu cầu xác nhận");
         confirmDialog.setIcon(R.mipmap.ic_launcher);
         confirmDialog.setMessage("Có phải bạn ý bạn là: " + inp + "?");

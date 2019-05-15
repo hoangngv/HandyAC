@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.speech.tts.Voice;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,5 +60,12 @@ public class Login extends AppCompatActivity {
 
     public void broadcastIntent() {
         registerReceiver(myReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_control, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }
