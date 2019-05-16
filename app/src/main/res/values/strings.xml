@@ -5,4 +5,5 @@
     <string name="state">Trạng thái điều hòa trong phòng bạn hiện tại</string>
     <string name="ac_temperature">Nhiệt độ điều hòa: </string>
     <string name="real_temperature">Nhiệt độ thực tế trong phòng: </string>
+    <string name="human_detection">Phòng có người hay không: </string>
 </resources>

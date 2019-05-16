@@ -16,13 +16,13 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class MqttHelper {
     public MqttAndroidClient mqttAndroidClient;
 
-    final String serverUri = "tcp://m12.cloudmqtt.com:11111";
+    final String serverUri = "tcp://iot.eclipse.org";
 
     final String clientId = "ExampleAndroidClient";
-    final String subscriptionTopic = "sensor/+";
+    final String subscriptionTopic = "airConditioner/data/";
 
-    final String username = "xxxxxxx";
-    final String password = "yyyyyyyyyy";
+    final String username = "nvhoang";
+    final String password = "12345678";
 
     public MqttHelper(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);
