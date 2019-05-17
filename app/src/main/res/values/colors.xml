@@ -9,5 +9,6 @@
     <color name="gradStart">#19AA8B</color>
     <color name="gradStop">#23A7D8</color>
     <color name="black">#000000</color>
-
+    <color name="grey">#AFB8BD</color>
+    <color name="loginButton">#66B9F9</color>
 </resources>

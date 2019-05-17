@@ -5,35 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-
     android:orientation="vertical"
     tools:context=".Login">
 
     <ImageView
-        android:src="@drawable/icon_ac_trans"
         android:layout_width="150dp"
-        android:layout_height="150dp" />
+        android:layout_height="150dp"
+        android:src="@drawable/icon_ac_trans" />
 
     <EditText
         android:layout_marginTop="20dp"
         android:hint="tên người dùng"
         android:id="@+id/editusername"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:background="@drawable/edit_round"
+        android:paddingLeft="25dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="40dp" />
 
     <EditText
         android:layout_marginTop="20dp"
         android:hint="mật khẩu"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:id="@+id/editpassword"
         android:inputType="textPassword"
+        android:background="@drawable/edit_round"
+        android:paddingLeft="25dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="40dp" />
 
     <LinearLayout
         android:layout_marginTop="20dp"
