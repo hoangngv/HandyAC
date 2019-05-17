@@ -10,5 +10,6 @@
     <color name="gradStop">#23A7D8</color>
     <color name="black">#000000</color>
     <color name="grey">#AFB8BD</color>
+    <color name="green">#4B8B3B</color>
     <color name="loginButton">#66B9F9</color>
 </resources>

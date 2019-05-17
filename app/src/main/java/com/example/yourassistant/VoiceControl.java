@@ -87,4 +87,11 @@ public class VoiceControl extends AppCompatActivity {
 
         confirmDialog.show();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_control, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 }
