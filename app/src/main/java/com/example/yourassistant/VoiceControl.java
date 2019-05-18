@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class VoiceControl extends AppCompatActivity {
-    TextView textView;
-    TextView inpTextView;
+    TextView textView, appendWelcome;
     ImageButton micButton;
     int SPEECH_RECOGNITION_CODE = 199;
     String inputCommand="";
+    Login loginGetter = new Login();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,15 @@ public class VoiceControl extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.voice_control);
         final String VN_lang="vi-VN";
+
+        // mapping
         textView = findViewById(R.id.mic);
         micButton = findViewById(R.id.micCommand);
-        //inpTextView = findViewById(R.id.inputTextView);
+        appendWelcome = findViewById(R.id.wc);
+
+        // processing;
+        appendWelcome.append(", " + loginGetter.getUserName());
+
         micButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +70,8 @@ public class VoiceControl extends AppCompatActivity {
         }
     }
 
+
+    // dialog confirming user command
     private void confirmCommand(String inp)
     {
         AlertDialog.Builder confirmDialog = new AlertDialog.Builder(VoiceControl.this, R.style.MyDialogTheme);

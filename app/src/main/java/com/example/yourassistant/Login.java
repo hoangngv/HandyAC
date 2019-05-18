@@ -61,4 +61,9 @@ public class Login extends AppCompatActivity {
     public void broadcastIntent() {
         registerReceiver(myReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
+
+    public String getUserName()
+    {
+        return userName;
+    }
 }
