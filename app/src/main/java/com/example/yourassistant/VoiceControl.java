@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -58,10 +59,8 @@ public class VoiceControl extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==SPEECH_RECOGNITION_CODE && resultCode==RESULT_OK && data!=null){
             ArrayList<String> resT = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            //textView.setText(resT.get(0));
             inputCommand=resT.get(0);
             confirmCommand(inputCommand);
-            //inpTextView.setText("Có phải ý bạn là: " + inputCommand + "?");
         }
     }
 
@@ -93,5 +92,21 @@ public class VoiceControl extends AppCompatActivity {
     {
         getMenuInflater().inflate(R.menu.menu_control, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.opt1:
+                Intent option_mqtt = new Intent(VoiceControl.this, OptionMqttConnection.class);
+                startActivity(option_mqtt);
+                break;
+            case R.id.opt2:
+                Intent mqttConnection2 = new Intent(VoiceControl.this, OptionMqttConnection.class);
+                startActivity(mqttConnection2);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
