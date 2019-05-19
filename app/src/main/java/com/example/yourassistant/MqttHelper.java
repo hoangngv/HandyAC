@@ -21,8 +21,10 @@ public class MqttHelper {
     final String clientId = "ExampleAndroidClient";
     final String subscriptionTopic = "airConditioner/data/";
 
-    final String username = "nvhoang";
-    final String password = "12345678";
+    Login lg = new Login();
+
+    final String username = lg.getUserName();
+    final String password = lg.getPassWord();
 
     public MqttHelper(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);
@@ -107,5 +109,15 @@ public class MqttHelper {
             System.err.println("Exception whilst subscribing");
             ex.printStackTrace();
         }
+    }
+
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public String getPassword()
+    {
+        return password;
     }
 }

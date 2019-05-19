@@ -27,6 +27,7 @@
 
         <activity android:name=".VoiceControl"></activity>
         <activity android:name=".OptionMqttConnection"></activity>
+        <activity android:name=".OptionAbout"></activity>
 
         <receiver android:name = "MyReceiver">
             <intent-filter>

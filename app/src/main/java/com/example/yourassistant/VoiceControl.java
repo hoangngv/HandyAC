@@ -111,8 +111,8 @@ public class VoiceControl extends AppCompatActivity {
                 startActivity(option_mqtt);
                 break;
             case R.id.opt2:
-                Intent mqttConnection2 = new Intent(VoiceControl.this, OptionMqttConnection.class);
-                startActivity(mqttConnection2);
+                Intent option_about = new Intent(VoiceControl.this, OptionAbout.class);
+                startActivity(option_about);
                 break;
         }
         return super.onOptionsItemSelected(item);

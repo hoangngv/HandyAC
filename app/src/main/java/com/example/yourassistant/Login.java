@@ -19,8 +19,8 @@ public class Login extends AppCompatActivity {
     Button btn_login;
     boolean success=false;
     private BroadcastReceiver myReceiver=null;
-    private String userName="nvhoang";
-    private String passWord="12345678";
+    private String userName = "nvhoang";
+    private String passWord = "12345678";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,5 +65,9 @@ public class Login extends AppCompatActivity {
     public String getUserName()
     {
         return userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
     }
 }
