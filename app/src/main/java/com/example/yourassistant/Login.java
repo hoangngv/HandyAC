@@ -17,8 +17,7 @@ import android.widget.Toast;
 public class Login extends AppCompatActivity {
     EditText edt_user, edt_password;
     Button btn_login;
-    boolean success=false;
-    private BroadcastReceiver myReceiver=null;
+
     private String userName = "nvhoang";
     private String passWord = "12345678";
 
@@ -27,8 +26,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_login);
-        myReceiver = new MyReceiver();
-        broadcastIntent();
         executeLogin();
     }
 
@@ -46,21 +43,16 @@ public class Login extends AppCompatActivity {
                 if (username.equals(userName) && password.equals(passWord))
                 {
                     Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                    success=true;
                     Intent mainScreen = new Intent(Login.this, VoiceControl.class);
                     startActivity(mainScreen);
                     finish();
                 } else {
                     Toast.makeText(Login.this, "Tên đăng nhập hoặc mật khẩu sai", Toast.LENGTH_SHORT).show();
-                    success=false;
                 }
             }
         });
     }
 
-    public void broadcastIntent() {
-        registerReceiver(myReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-    }
 
     public String getUserName()
     {

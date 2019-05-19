@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="MQTT Connection" android:id="@+id/opt1"/>
-    <item android:title="About" android:id="@+id/opt2"/>
+    <item android:title="Đăng xuất" android:id="@+id/op0"/>
+    <item android:title="Kết nối MQTT" android:id="@+id/opt1"/>
+    <item android:title="Liên hệ" android:id="@+id/opt2"/>
 </menu>
