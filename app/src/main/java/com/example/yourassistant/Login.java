@@ -37,11 +37,14 @@ public class Login extends AppCompatActivity {
     private void executeLogin()
     {
         sharedPref = getSharedPreferences("userAccount", MODE_PRIVATE);
-        edt_user=(EditText) findViewById(R.id.editusername);
-        edt_password=(EditText) findViewById(R.id.editpassword);
-        btn_login=(Button) findViewById(R.id.loginbutton);
-        rememberMe=(CheckBox) findViewById(R.id.checkBox);
 
+        // mapping
+        edt_user = (EditText) findViewById(R.id.editusername);
+        edt_password = (EditText) findViewById(R.id.editpassword);
+        btn_login = (Button) findViewById(R.id.loginbutton);
+        rememberMe = (CheckBox) findViewById(R.id.checkBox);
+
+        // get data from saved SharedPreferences
         edt_user.setText(sharedPref.getString("username", ""));
         edt_password.setText(sharedPref.getString("password", ""));
         rememberMe.setChecked(sharedPref.getBoolean("checked", false));
@@ -56,6 +59,7 @@ public class Login extends AppCompatActivity {
                 {
                     Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
 
+                    // process CheckBox
                     if (rememberMe.isChecked())
                     {
                         // save to SharedPref
@@ -93,11 +97,4 @@ public class Login extends AppCompatActivity {
     public String getPassWord() {
         return passWord;
     }
-
-    public String getPrefUsername()
-    {
-        return sharedPref.getString("username", "");
-    }
-
-
 }

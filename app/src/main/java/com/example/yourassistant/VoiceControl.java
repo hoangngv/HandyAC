@@ -30,7 +30,7 @@ public class VoiceControl extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.voice_control);
-        final String VN_lang="vi-VN";
+        final String lang_vietnamese="vi-VN";
 
         // mapping
         textView = findViewById(R.id.mic);
@@ -45,14 +45,13 @@ public class VoiceControl extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, VN_lang);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, lang_vietnamese);
                 intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 5000);
                 intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 5000);
                 intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 5000);
                 //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH);
                 if(intent.resolveActivity(getPackageManager())!= null){
                     startActivityForResult(intent, SPEECH_RECOGNITION_CODE);
-                    //System.out.println(inputCommand);
                 } else {
                     Toast.makeText(VoiceControl.this, "Your device do not support speech input", Toast.LENGTH_SHORT).show();
                 }
@@ -107,8 +106,8 @@ public class VoiceControl extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.opt0:
-                Intent loginPage = new Intent(VoiceControl.this, Login.class);
-                startActivity(loginPage);
+                Intent login_page = new Intent(VoiceControl.this, Login.class);
+                startActivity(login_page);
                 finish();
                 break;
             case R.id.opt1:
