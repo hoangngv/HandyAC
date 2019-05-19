@@ -11,4 +11,5 @@
     <string name="checkbox">Ghi nhớ tài khoản</string>
     <string name="server">Địa chỉ Server URI đang sử dụng: </string>
     <string name="topic">Địa chỉ bạn muốn nhận dữ liệu: </string>
+    <string name="null_string">null</string>
 </resources>
