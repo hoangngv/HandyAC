@@ -106,6 +106,11 @@ public class VoiceControl extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
+            case R.id.opt0:
+                Intent loginPage = new Intent(VoiceControl.this, Login.class);
+                startActivity(loginPage);
+                finish();
+                break;
             case R.id.opt1:
                 Intent option_mqtt = new Intent(VoiceControl.this, OptionMqttConnection.class);
                 startActivity(option_mqtt);

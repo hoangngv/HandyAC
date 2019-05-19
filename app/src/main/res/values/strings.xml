@@ -8,4 +8,5 @@
     <string name="human_detection">Phòng có người hay không: </string>
     <string name="author">Contact: nvhoang191@gmail.com</string>
     <string name="app_version">HandyAC version 1.0</string>
+    <string name="checkbox">Ghi nhớ tài khoản</string>
 </resources>
