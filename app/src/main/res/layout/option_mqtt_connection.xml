@@ -21,6 +21,33 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <TextView
+        android:id="@+id/server"
+        android:layout_width="370dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/server"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/edt_server"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="Server URI"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/server" />
+
+    <TextView
         android:id="@+id/topic"
         android:layout_width="370dp"
         android:layout_height="35dp"
@@ -29,10 +56,10 @@
         android:fontFamily="sans-serif-condensed"
         android:text="@string/topic"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/edt_server" />
 
     <EditText
         android:id="@+id/edt_topic"
@@ -41,10 +68,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-condensed"
-        android:hint="topic MQTT"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:hint="MQTT topic"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topic" />
 
@@ -57,7 +83,7 @@
         android:fontFamily="sans-serif-condensed"
         android:text="Dữ liệu nhận được:"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edt_topic" />
@@ -71,8 +97,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-condensed"
         android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/data" />
 

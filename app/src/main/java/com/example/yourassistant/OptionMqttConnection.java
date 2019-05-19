@@ -14,7 +14,7 @@ import org.w3c.dom.Text;
 
 public class OptionMqttConnection extends AppCompatActivity {
     MqttHelper mqttHelper;
-    TextView dataComing, topicToSubscribe;
+    TextView dataComing, topicToSubscribe, serverURI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +25,12 @@ public class OptionMqttConnection extends AppCompatActivity {
         // mapping
         dataComing = (TextView) findViewById(R.id.dataReceived);
         topicToSubscribe = (TextView) findViewById(R.id.edt_topic);
+        serverURI = (TextView) findViewById(R.id.edt_server);
 
-        // get topic
+        // get & set text
         mqttHelper = new MqttHelper(getApplicationContext());
         topicToSubscribe.setText(mqttHelper.getTopic());
+        serverURI.setText(mqttHelper.getServerUri());
 
         startMqtt();
     }

@@ -125,4 +125,9 @@ public class MqttHelper {
     {
         return subscriptionTopic;
     }
+
+    public String getServerUri()
+    {
+        return serverUri;
+    }
 }
