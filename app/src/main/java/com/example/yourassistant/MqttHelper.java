@@ -120,4 +120,9 @@ public class MqttHelper {
     {
         return password;
     }
+
+    public String getTopic()
+    {
+        return subscriptionTopic;
+    }
 }

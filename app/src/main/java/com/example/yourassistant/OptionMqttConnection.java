@@ -14,7 +14,7 @@ import org.w3c.dom.Text;
 
 public class OptionMqttConnection extends AppCompatActivity {
     MqttHelper mqttHelper;
-    TextView dataComing;
+    TextView dataComing, topicToSubscribe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,13 @@ public class OptionMqttConnection extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.option_mqtt_connection);
 
+        // mapping
         dataComing = (TextView) findViewById(R.id.dataReceived);
+        topicToSubscribe = (TextView) findViewById(R.id.edt_topic);
+
+        // get topic
+        mqttHelper = new MqttHelper(getApplicationContext());
+        topicToSubscribe.setText(mqttHelper.getTopic());
 
         startMqtt();
     }
