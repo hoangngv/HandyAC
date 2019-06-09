@@ -66,11 +66,11 @@ public class VoiceControl extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == SPEECH_RECOGNITION_CODE && resultCode == RESULT_OK && data != null){
             ArrayList<String> resT = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            inputCommand=resT.get(0);
+            inputCommand = resT.get(0);
             String processedInput = "", temp = "";
-            if (inputCommand.contains("tắt")) {
+            if (inputCommand.contains("tắt") || inputCommand.contains("Tắt")) {
                 processedInput = "tắt điều hòa";
-            } else if (inputCommand.contains("bật")) {
+            } else if (inputCommand.contains("bật") || inputCommand.contains("Bật")) {
                 temp = extractNumber(inputCommand);
                 if (temp == null || temp.isEmpty()) {
                     processedInput = "bật điều hòa";
