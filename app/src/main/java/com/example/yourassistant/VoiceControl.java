@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.eclipse.paho.android.service.MqttAndroidClient;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -53,7 +55,7 @@ public class VoiceControl extends AppCompatActivity {
                 if(intent.resolveActivity(getPackageManager())!= null){
                     startActivityForResult(intent, SPEECH_RECOGNITION_CODE);
                 } else {
-                    Toast.makeText(VoiceControl.this, "Your device do not support speech input", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VoiceControl.this, "Your device does not support speech input", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -62,10 +64,21 @@ public class VoiceControl extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==SPEECH_RECOGNITION_CODE && resultCode==RESULT_OK && data!=null){
+        if(requestCode == SPEECH_RECOGNITION_CODE && resultCode == RESULT_OK && data != null){
             ArrayList<String> resT = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             inputCommand=resT.get(0);
-            confirmCommand(inputCommand);
+            String processedInput = "", temp = "";
+            if (inputCommand.contains("tắt")) {
+                processedInput = "tắt điều hòa";
+            } else if (inputCommand.contains("bật")) {
+                temp = extractNumber(inputCommand);
+                if (temp.equals(null) || temp.equals("")) {
+                    processedInput = "bật điều hòa";
+                } else {
+                    processedInput = "bật điều hòa ở mức " + temp + " độ C";
+                }
+            }
+            confirmCommand(processedInput);
         }
     }
 
@@ -120,5 +133,24 @@ public class VoiceControl extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static String extractNumber(final String str) {
+
+        if(str == null || str.isEmpty()) return "";
+
+        StringBuilder sb = new StringBuilder();
+        boolean found = false;
+        for(char c : str.toCharArray()){
+            if(Character.isDigit(c)){
+                sb.append(c);
+                found = true;
+            } else if(found){
+                // If we already found a digit before and this char is not a digit, stop looping
+                break;
+            }
+        }
+
+        return sb.toString();
     }
 }
