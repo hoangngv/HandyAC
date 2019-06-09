@@ -72,7 +72,7 @@ public class VoiceControl extends AppCompatActivity {
                 processedInput = "tắt điều hòa";
             } else if (inputCommand.contains("bật")) {
                 temp = extractNumber(inputCommand);
-                if (temp.equals(null) || temp.equals("")) {
+                if (temp == null || temp.isEmpty()) {
                     processedInput = "bật điều hòa";
                 } else {
                     processedInput = "bật điều hòa ở mức " + temp + " độ C";
