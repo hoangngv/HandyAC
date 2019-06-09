@@ -20,6 +20,8 @@ import org.eclipse.paho.android.service.MqttAndroidClient;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static android.speech.RecognizerIntent.EXTRA_PREFER_OFFLINE;
+
 public class VoiceControl extends AppCompatActivity {
     TextView textView, appendWelcome;
     ImageButton micButton;
@@ -48,9 +50,10 @@ public class VoiceControl extends AppCompatActivity {
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, lang_vietnamese);
-                intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 5000);
-                intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 5000);
-                intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 5000);
+                intent.putExtra(EXTRA_PREFER_OFFLINE, true);
+                //intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 5000);
+                //intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 5000);
+                //intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 5000);
                 //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.ENGLISH);
                 if(intent.resolveActivity(getPackageManager())!= null){
                     startActivityForResult(intent, SPEECH_RECOGNITION_CODE);
