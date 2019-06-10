@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@id/server" />
 
     <TextView
-        android:id="@+id/topic"
+        android:id="@+id/topic_sub"
         android:layout_width="370dp"
         android:layout_height="35dp"
         android:layout_marginLeft="20dp"
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@id/edt_server" />
 
     <EditText
-        android:id="@+id/edt_topic"
+        android:id="@+id/edt_topic_sub"
         android:layout_width="370dp"
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
@@ -72,34 +72,34 @@
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topic" />
+        app:layout_constraintTop_toBottomOf="@id/topic_sub" />
 
     <TextView
-        android:id="@+id/data"
+        android:id="@+id/topic_pub"
         android:layout_width="370dp"
         android:layout_height="35dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Dữ liệu nhận được:"
+        android:text="Địa chỉ bạn muốn gửi dữ liệu:"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edt_topic" />
+        app:layout_constraintTop_toBottomOf="@id/edt_topic_sub" />
 
     <EditText
-        android:id="@+id/dataReceived"
-        android:text="Hello World!"
+        android:id="@+id/edt_topic_pub"
         android:layout_width="370dp"
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-condensed"
-        android:textColor="@color/black"
+        android:hint="MQTT topic"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/data" />
+        app:layout_constraintTop_toBottomOf="@id/topic_pub" />
 
 
 </android.support.constraint.ConstraintLayout>

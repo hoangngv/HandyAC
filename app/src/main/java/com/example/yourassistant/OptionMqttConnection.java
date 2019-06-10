@@ -4,17 +4,14 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.w3c.dom.Text;
 
 public class OptionMqttConnection extends AppCompatActivity {
-    MqttHelper mqttHelper;
-    TextView dataComing, topicToSubscribe, serverURI;
+
+    TextView topicToSubscribe, topicToPublish, serverURI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,42 +20,14 @@ public class OptionMqttConnection extends AppCompatActivity {
         setContentView(R.layout.option_mqtt_connection);
 
         // mapping
-        dataComing = (TextView) findViewById(R.id.dataReceived);
-        topicToSubscribe = (TextView) findViewById(R.id.edt_topic);
+        topicToPublish = (TextView) findViewById(R.id.edt_topic_pub);
+        topicToSubscribe = (TextView) findViewById(R.id.edt_topic_sub);
         serverURI = (TextView) findViewById(R.id.edt_server);
 
-        // get & set text
-        mqttHelper = new MqttHelper(getApplicationContext());
-        topicToSubscribe.setText(mqttHelper.getTopic());
-        serverURI.setText(mqttHelper.getServerUri());
-
-        startMqtt();
-    }
-
-    private void startMqtt() {
-        mqttHelper = new MqttHelper(getApplicationContext());
-        mqttHelper.setCallback(new MqttCallbackExtended() {
-            @Override
-            public void connectComplete(boolean b, String s) {
-
-            }
-
-            @Override
-            public void connectionLost(Throwable throwable) {
-
-            }
-
-            @Override
-            public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-                Log.w("Debug", mqttMessage.toString());
-                dataComing.setText(mqttMessage.toString());
-            }
-
-            @Override
-            public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
-
-            }
-        });
+        // set text
+        topicToPublish.setText(VoiceControl.publishTopic);
+        topicToSubscribe.setText(VoiceControl.subscriptionTopic);
+        serverURI.setText(VoiceControl.MQTTHOST);
 
     }
 }
