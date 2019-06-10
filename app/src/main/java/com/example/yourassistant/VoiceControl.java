@@ -1,5 +1,9 @@
 package com.example.yourassistant;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,7 +44,8 @@ import static android.speech.RecognizerIntent.EXTRA_MAX_RESULTS;
 import static android.speech.RecognizerIntent.EXTRA_PREFER_OFFLINE;
 
 public class VoiceControl extends AppCompatActivity {
-    static String MQTTHOST = "tcp://iot.eclipse.org";
+    //static String MQTTHOST = "tcp://iot.eclipse.org";
+    static String MQTTHOST = "tcp://k61iotlab.duckdns.org:1883";
     static String USERNAME = "nvhoang";
     static String PASSWORD = "12345678";
     static String publishTopic  = "air_conditioner/command/";
@@ -54,7 +59,7 @@ public class VoiceControl extends AppCompatActivity {
     TextView textView, appendWelcome, currentTemperature, roomTemperature, roomHumidity, humanDetection;
     ImageButton micButton;
     int SPEECH_RECOGNITION_CODE = 199;
-    String inputCommand="";
+    String inputCommand = "";
 
     SharedPreferences sharedPreferences;
 
@@ -319,6 +324,7 @@ public class VoiceControl extends AppCompatActivity {
             case R.id.opt0:
                 Intent login_page = new Intent(VoiceControl.this, Login.class);
                 startActivity(login_page);
+                Toast.makeText(VoiceControl.this, "Đã đăng xuất", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
             case R.id.opt1:

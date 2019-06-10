@@ -14,13 +14,6 @@ public class OptionMqttConnection extends AppCompatActivity {
     TextView edt_sub0, edt_sub1, edt_sub2, edt_sub3, edt_pub, edt_uri;
     Button btn_updateTopics;
 
-    static String publishingTopic = "air_conditioner/command/",
-            subTopic0 = "air_conditioner/data/",
-            subTopic1 = "temperature_sensor/data/",
-            subTopic2 = "humidity_sensor/data/",
-            subTopic3 = "human_detection_sensor/data/",
-            URI = "tcp://iot.eclipse.org";
-
     SharedPreferences sharedPreferences;
 
     @Override
@@ -43,12 +36,12 @@ public class OptionMqttConnection extends AppCompatActivity {
 
         // shared preferences
         if (sharedPreferences != null) {
-            String tmp_pub = sharedPreferences.getString("publish_topic", "air_conditioner/command/");
-            String tmp_sub0 = sharedPreferences.getString("subscribe_topic0", "air_conditioner/data/");
-            String tmp_sub1 = sharedPreferences.getString("subscribe_topic1", "temperature_sensor/data/");
-            String tmp_sub2 = sharedPreferences.getString("subscribe_topic2", "humidity_sensor/data/");
-            String tmp_sub3 = sharedPreferences.getString("subscribe_topic3", "human_dectection_sensor/data/");
-            String tmp_uri = sharedPreferences.getString("server_uri", "tcp://iot.eclipse.org");
+            String tmp_pub = sharedPreferences.getString("publish_topic", VoiceControl.publishTopic);
+            String tmp_sub0 = sharedPreferences.getString("subscribe_topic0", VoiceControl.subscriptionTopic0);
+            String tmp_sub1 = sharedPreferences.getString("subscribe_topic1", VoiceControl.subscriptionTopic1);
+            String tmp_sub2 = sharedPreferences.getString("subscribe_topic2", VoiceControl.subscriptionTopic2);
+            String tmp_sub3 = sharedPreferences.getString("subscribe_topic3", VoiceControl.subscriptionTopic3);
+            String tmp_uri = sharedPreferences.getString("server_uri", VoiceControl.MQTTHOST);
 
             edt_pub.setText(tmp_pub);
             edt_sub0.setText(tmp_sub0);
@@ -57,12 +50,12 @@ public class OptionMqttConnection extends AppCompatActivity {
             edt_sub3.setText(tmp_sub3);
             edt_uri.setText(tmp_uri);
         } else {
-            edt_pub.setText(publishingTopic);
-            edt_sub0.setText(subTopic0);
-            edt_sub1.setText(subTopic1);
-            edt_sub2.setText(subTopic2);
-            edt_sub3.setText(subTopic3);
-            edt_uri.setText(URI);
+            edt_pub.setText(VoiceControl.publishTopic);
+            edt_sub0.setText(VoiceControl.subscriptionTopic0);
+            edt_sub1.setText(VoiceControl.subscriptionTopic1);
+            edt_sub2.setText(VoiceControl.subscriptionTopic2);
+            edt_sub3.setText(VoiceControl.subscriptionTopic3);
+            edt_uri.setText(VoiceControl.MQTTHOST);
         }
 
         btn_updateTopics.setOnClickListener(new View.OnClickListener() {
@@ -75,9 +68,6 @@ public class OptionMqttConnection extends AppCompatActivity {
                         sub_topic2 = edt_sub2.getText().toString(),
                         sub_topic3= edt_sub3.getText().toString(),
                         uri = edt_uri.getText().toString();
-
-                publishingTopic = publish_topic;
-                subTopic0 = sub_topic0;
                 
                 // save 
                 edit_shared_pref.putString("publish_topic", publish_topic);
