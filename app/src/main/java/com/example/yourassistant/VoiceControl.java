@@ -2,6 +2,7 @@ package com.example.yourassistant;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
@@ -41,7 +42,7 @@ import static android.speech.RecognizerIntent.EXTRA_PREFER_OFFLINE;
 public class VoiceControl extends AppCompatActivity {
     static String MQTTHOST = "tcp://iot.eclipse.org";
     static String USERNAME = "nvhoang";
-    static String PASSWORD = "hhh@1998";
+    static String PASSWORD = "12345678";
     static String publishTopic  = "airConditioner/command/";
     static String subscriptionTopic = "airConditioner/data/";
 
@@ -51,7 +52,8 @@ public class VoiceControl extends AppCompatActivity {
     ImageButton micButton;
     int SPEECH_RECOGNITION_CODE = 199;
     String inputCommand="";
-    Login loginGetter = new Login();
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,23 @@ public class VoiceControl extends AppCompatActivity {
 
 
         // processing;
-        appendWelcome.append(", " + loginGetter.getUserName());
+        appendWelcome.append(", " + USERNAME);
+
+        // shared preferences
+        sharedPreferences = this.getSharedPreferences("roomData", MODE_PRIVATE);
+        if (sharedPreferences != null) {
+            String currentValue = sharedPreferences.getString("current_temperature", "null");
+            String roomValue = sharedPreferences.getString("room_temperature", "null");
+            String humanDetect = sharedPreferences.getString("human_detection", "null");
+
+            currentTemperature.setText(currentValue);
+            roomTemperature.setText(roomValue);
+            humanDetection.setText(humanDetect);
+        } else {
+            currentTemperature.setText("null");
+            roomTemperature.setText("null");
+            humanDetection.setText("null");
+        }
 
         // MQTT connection
         String clientId = MqttClient.generateClientId();
@@ -117,10 +135,10 @@ public class VoiceControl extends AppCompatActivity {
 
                 // current temp
                 val1 = jsonObject.getString("current_temperature");
-                if (!val1.equals("OFF")) {
-                    val1 = val1 + " độ C";
-                } else {
+                if (val1.equals("OFF")) {
                     val1 = "tắt";
+                } else {
+                    val1 = val1 + " độ C";
                 }
 
                 // room temp
@@ -137,6 +155,12 @@ public class VoiceControl extends AppCompatActivity {
                 currentTemperature.setText(val1);
                 roomTemperature.setText(val2);
                 humanDetection.setText(val3);
+
+                SharedPreferences.Editor edt_shared_preferences = sharedPreferences.edit();
+                edt_shared_preferences.putString("current_temperature", val1);
+                edt_shared_preferences.putString("room_temperature", val2);
+                edt_shared_preferences.putString("human_detection", val3);
+                edt_shared_preferences.commit();
             }
 
             @Override
@@ -177,27 +201,12 @@ public class VoiceControl extends AppCompatActivity {
         if(requestCode == SPEECH_RECOGNITION_CODE && resultCode == RESULT_OK && data != null){
             ArrayList<String> resT = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             inputCommand = resT.get(0);
-            //String processedInput = "", temp = "";
+
             if (inputCommand.contains("bật") || inputCommand.contains("Bật") || inputCommand.contains("tắt") || inputCommand.contains("Tắt")){
                 confirmCommand(inputCommand);
             } else {
                 Toast.makeText(VoiceControl.this, "Không rõ yêu cầu. Vui lòng thử lại!", Toast.LENGTH_SHORT).show();
             }
-            /*if (inputCommand.contains("tắt") || inputCommand.contains("Tắt")) {
-                processedInput = "tắt điều hòa";
-                confirmCommand(processedInput);
-            } else if (inputCommand.contains("bật") || inputCommand.contains("Bật")) {
-                temp = extractNumber(inputCommand);
-                if (temp == null || temp.isEmpty()) {
-                    processedInput = "bật điều hòa";
-                    confirmCommand(processedInput);
-                } else {
-                    processedInput = "bật điều hòa ở mức " + temp + " độ C";
-                    confirmCommand(processedInput);
-                }
-            } else if (!inputCommand.contains("bật") || !inputCommand.contains("Bật") || !inputCommand.contains("tắt") || !inputCommand.contains("Tắt")){
-                Toast.makeText(VoiceControl.this, "Không rõ yêu cầu. Vui lòng thử lại!", Toast.LENGTH_LONG).show();
-            }*/
         }
     }
 
@@ -216,6 +225,7 @@ public class VoiceControl extends AppCompatActivity {
         }
 
         String processedInput = "";
+        final String temp = extractNumber(inp);
         if (inp.contains("tắt") || inp.contains("Tắt")) {
             processedInput = "tắt điều hòa";
             try {
@@ -225,10 +235,9 @@ public class VoiceControl extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else if (inp.contains("bật") || inp.contains("Bật")) {
-            String temp = "", value = "";
-            temp = extractNumber(inp);
+            String value = "";
             if (temp == null || temp.isEmpty()) {
-                processedInput = "bật điều hòa";
+                processedInput = "bật điều hòa với mức nhiệt mặc định 28 độ C";
                 try {
                     command.remove("0xB3");
                     command.put("0xB3", "0x1C"); // default: 28oC
@@ -247,6 +256,9 @@ public class VoiceControl extends AppCompatActivity {
             }
         }
 
+        sharedPreferences = this.getSharedPreferences("roomData", MODE_PRIVATE);
+        final SharedPreferences.Editor edt_shared_pref = sharedPreferences.edit();
+
         confirmDialog.setTitle("Yêu cầu xác nhận");
         confirmDialog.setIcon(R.mipmap.ic_launcher);
         confirmDialog.setMessage("Có phải bạn ý bạn là: " + processedInput + "?");
@@ -254,7 +266,17 @@ public class VoiceControl extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 publishMessage(publishTopic, command.toString());
-                currentTemperature.setText(extractNumber(inp) + " độ C");
+                if (inp.contains("tắt")) {
+                    currentTemperature.setText("tắt");
+                    edt_shared_pref.putString("current_temperature", "tắt");
+                } else if (temp == null || temp.isEmpty()) {
+                    currentTemperature.setText("28 độ C");
+                    edt_shared_pref.putString("current_temperature", "28 độ C");
+                } else {
+                    currentTemperature.setText(temp + " độ C");
+                    edt_shared_pref.putString("current_temperature", temp + " độ C");
+                }
+                edt_shared_pref.commit();
                 Toast.makeText(VoiceControl.this, "Yêu cầu của bạn đã được thực hiện", Toast.LENGTH_SHORT).show();
             }
         });
@@ -288,8 +310,6 @@ public class VoiceControl extends AppCompatActivity {
             case R.id.opt1:
                 Intent option_mqtt = new Intent(VoiceControl.this, OptionMqttConnection.class);
                 startActivity(option_mqtt);
-                /*Intent option_about_fake = new Intent(VoiceControl.this, OptionAbout.class);
-                startActivity(option_about_fake);*/
                 break;
             case R.id.opt2:
                 Intent option_about = new Intent(VoiceControl.this, OptionAbout.class);

@@ -21,9 +21,6 @@ public class Login extends AppCompatActivity {
     Button btn_login;
     CheckBox rememberMe;
 
-    private String userName = "nvhoang";
-    private String passWord = "12345678";
-
     SharedPreferences sharedPref;
 
     @Override
@@ -55,7 +52,7 @@ public class Login extends AppCompatActivity {
             {
                 String username = edt_user.getText().toString().trim();
                 String password = edt_password.getText().toString().trim();
-                if (username.equals(userName) && password.equals(passWord))
+                if (username.equals(VoiceControl.USERNAME) && password.equals(VoiceControl.PASSWORD))
                 {
                     Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
 
@@ -86,15 +83,5 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
-    }
-
-
-    public String getUserName()
-    {
-        return userName;
-    }
-
-    public String getPassWord() {
-        return passWord;
     }
 }
