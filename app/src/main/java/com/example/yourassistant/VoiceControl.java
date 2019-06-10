@@ -43,12 +43,15 @@ public class VoiceControl extends AppCompatActivity {
     static String MQTTHOST = "tcp://iot.eclipse.org";
     static String USERNAME = "nvhoang";
     static String PASSWORD = "12345678";
-    static String publishTopic  = "airConditioner/command/";
-    static String subscriptionTopic = "airConditioner/data/";
+    static String publishTopic  = "air_conditioner/command/";
+    static String subscriptionTopic0 = "air_conditioner/data/";
+    static String subscriptionTopic1 = "temperature_sensor/data/";
+    static String subscriptionTopic2 = "humidity_sensor/data/";
+    static String subscriptionTopic3 = "human_detection_sensor/data/";
 
     MqttAndroidClient client;
 
-    TextView textView, appendWelcome, currentTemperature, roomTemperature, humanDetection;
+    TextView textView, appendWelcome, currentTemperature, roomTemperature, roomHumidity, humanDetection;
     ImageButton micButton;
     int SPEECH_RECOGNITION_CODE = 199;
     String inputCommand="";
@@ -68,6 +71,7 @@ public class VoiceControl extends AppCompatActivity {
         appendWelcome = findViewById(R.id.wc);
         currentTemperature = findViewById(R.id.ac_temp_value);
         roomTemperature = findViewById(R.id.real_temp_value);
+        roomHumidity = findViewById(R.id.real_humidity_value);
         humanDetection = findViewById(R.id.human_value);
 
 
@@ -79,14 +83,17 @@ public class VoiceControl extends AppCompatActivity {
         if (sharedPreferences != null) {
             String currentValue = sharedPreferences.getString("current_temperature", "null");
             String roomValue = sharedPreferences.getString("room_temperature", "null");
+            String humidValue = sharedPreferences.getString("room_humidity", "null");
             String humanDetect = sharedPreferences.getString("human_detection", "null");
 
             currentTemperature.setText(currentValue);
             roomTemperature.setText(roomValue);
+            roomHumidity.setText(humidValue);
             humanDetection.setText(humanDetect);
         } else {
             currentTemperature.setText("null");
             roomTemperature.setText("null");
+            roomHumidity.setText("null");
             humanDetection.setText("null");
         }
 
@@ -128,38 +135,45 @@ public class VoiceControl extends AppCompatActivity {
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 Toast.makeText(VoiceControl.this, "Đã cập nhật dữ liệu", Toast.LENGTH_SHORT).show();
-
-                JSONObject jsonObject = new JSONObject(message.toString());
-
-                String val1 = "null", val2 = "null", val3 = "null", tmp;
-
-                // current temp
-                val1 = jsonObject.getString("current_temperature");
-                if (val1.equals("OFF")) {
-                    val1 = "tắt";
-                } else {
-                    val1 = val1 + " độ C";
-                }
-
-                // room temp
-                val2 = jsonObject.getString("room_temperature") + " độ C";
-
-                // human detection
-                tmp = jsonObject.getString("human_detection");
-                if (tmp.equals("true") || tmp.equals("1")) {
-                    val3 = "Có";
-                } else {
-                    val3 = "Không";
-                }
-
-                currentTemperature.setText(val1);
-                roomTemperature.setText(val2);
-                humanDetection.setText(val3);
-
                 SharedPreferences.Editor edt_shared_preferences = sharedPreferences.edit();
-                edt_shared_preferences.putString("current_temperature", val1);
-                edt_shared_preferences.putString("room_temperature", val2);
-                edt_shared_preferences.putString("human_detection", val3);
+
+                // process 3 topics
+                if (topic.equals(subscriptionTopic0)) {
+                    JSONObject jsonObject = new JSONObject(message.toString());
+                    String current_ac_temp = "null";
+                    current_ac_temp = jsonObject.getString("current_temperature");
+                    if (current_ac_temp.equals("OFF")) {
+                        current_ac_temp = "Tắt";
+                    } else {
+                        current_ac_temp = current_ac_temp + "°C";
+                    }
+                    currentTemperature.setText(current_ac_temp);
+                    edt_shared_preferences.putString("current_temperature", current_ac_temp);
+                } else if (topic.equals(subscriptionTopic1)) {
+                    JSONObject jsonObject = new JSONObject(message.toString());
+                    String real_room_temp = "null";
+                    real_room_temp = jsonObject.getString("room_temperature") + "°C";
+                    roomTemperature.setText(real_room_temp);
+                    edt_shared_preferences.putString("room_temperature", real_room_temp);
+                } else if (topic.equals(subscriptionTopic2)) {
+                    JSONObject jsonObject = new JSONObject(message.toString());
+                    String real_room_humidity = "null";
+                    real_room_humidity = jsonObject.getString("room_humidity") + "%";
+                    roomHumidity.setText(real_room_humidity);
+                    edt_shared_preferences.putString("room_humidity", real_room_humidity);
+                } else if (topic.equals(subscriptionTopic3)) {
+                    JSONObject jsonObject = new JSONObject(message.toString());
+                    String human_state = "null";
+                    if (jsonObject.getString("human_detection").equals("true")) {
+                        human_state = "Có";
+                    } else {
+                        human_state = "Không";
+                    }
+                    humanDetection.setText(human_state);
+                    edt_shared_preferences.putString("human_detection", human_state);
+                }
+
+                // save data
                 edt_shared_preferences.commit();
             }
 
@@ -237,7 +251,7 @@ public class VoiceControl extends AppCompatActivity {
         } else if (inp.contains("bật") || inp.contains("Bật")) {
             String value = "";
             if (temp == null || temp.isEmpty()) {
-                processedInput = "bật điều hòa với mức nhiệt mặc định 28 độ C";
+                processedInput = "bật điều hòa với mức nhiệt mặc định 28°C";
                 try {
                     command.remove("0xB3");
                     command.put("0xB3", "0x1C"); // default: 28oC
@@ -245,7 +259,7 @@ public class VoiceControl extends AppCompatActivity {
                     e.printStackTrace();
                 }
             } else {
-                processedInput = "bật điều hòa ở mức " + temp + " độ C";
+                processedInput = "bật điều hòa ở mức " + temp + "°C";
                 value = intToHexString(Integer.parseInt(temp)); // desired temperature in HEX string
                 try {
                     command.remove("0xB3");
@@ -267,14 +281,14 @@ public class VoiceControl extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 publishMessage(publishTopic, command.toString());
                 if (inp.contains("tắt")) {
-                    currentTemperature.setText("tắt");
-                    edt_shared_pref.putString("current_temperature", "tắt");
+                    currentTemperature.setText("Tắt");
+                    edt_shared_pref.putString("current_temperature", "Tắt");
                 } else if (temp == null || temp.isEmpty()) {
-                    currentTemperature.setText("28 độ C");
-                    edt_shared_pref.putString("current_temperature", "28 độ C");
+                    currentTemperature.setText("28°C");
+                    edt_shared_pref.putString("current_temperature", "28°C");
                 } else {
-                    currentTemperature.setText(temp + " độ C");
-                    edt_shared_pref.putString("current_temperature", temp + " độ C");
+                    currentTemperature.setText(temp + "°C");
+                    edt_shared_pref.putString("current_temperature", temp + "°C");
                 }
                 edt_shared_pref.commit();
                 Toast.makeText(VoiceControl.this, "Yêu cầu của bạn đã được thực hiện", Toast.LENGTH_SHORT).show();
@@ -348,7 +362,10 @@ public class VoiceControl extends AppCompatActivity {
 
     private void setSubscription() {
         try {
-            client.subscribe(subscriptionTopic, 0);
+            client.subscribe(subscriptionTopic0, 0);
+            client.subscribe(subscriptionTopic1, 0);
+            client.subscribe(subscriptionTopic2, 0);
+            client.subscribe(subscriptionTopic3, 0);
         } catch (MqttException e) {
             e.printStackTrace();
         }

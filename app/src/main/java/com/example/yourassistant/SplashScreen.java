@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 2000;
-    private BroadcastReceiver myReceiver=null;
+    private BroadcastReceiver myReceiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

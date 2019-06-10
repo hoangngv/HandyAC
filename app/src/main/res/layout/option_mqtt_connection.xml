@@ -39,7 +39,7 @@
         android:layout_width="370dp"
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="sans-serif-condensed"
         android:hint="Server URI"
         android:textColor="@color/colorPrimary"
@@ -52,7 +52,7 @@
         android:layout_width="370dp"
         android:layout_height="35dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/topic"
         android:textColor="@color/black"
@@ -62,44 +62,97 @@
         app:layout_constraintTop_toBottomOf="@id/edt_server" />
 
     <EditText
-        android:id="@+id/edt_topic_sub"
+        android:id="@+id/edt_topic_sub0"
         android:layout_width="370dp"
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="sans-serif-condensed"
-        android:hint="MQTT topic"
+        android:hint="current_temperature"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topic_sub" />
+
+    <EditText
+        android:id="@+id/edt_topic_sub1"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="room_temperature"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_topic_sub0" />
+
+    <EditText
+        android:id="@+id/edt_topic_sub2"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="room_humidity"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_topic_sub1" />
+
+    <EditText
+        android:id="@+id/edt_topic_sub3"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="human_detection"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_topic_sub2" />
 
     <TextView
         android:id="@+id/topic_pub"
         android:layout_width="370dp"
         android:layout_height="35dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-condensed"
         android:text="Địa chỉ bạn muốn gửi dữ liệu:"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edt_topic_sub" />
+        app:layout_constraintTop_toBottomOf="@id/edt_topic_sub3" />
 
     <EditText
         android:id="@+id/edt_topic_pub"
         android:layout_width="370dp"
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="sans-serif-condensed"
         android:hint="MQTT topic"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topic_pub" />
+
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_login"
+        android:text="@string/update"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_topic_pub" />
 
 
 </android.support.constraint.ConstraintLayout>
