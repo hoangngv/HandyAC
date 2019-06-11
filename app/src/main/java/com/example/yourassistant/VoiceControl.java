@@ -142,7 +142,7 @@ public class VoiceControl extends AppCompatActivity {
 
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
-                Toast.makeText(VoiceControl.this, "Đã cập nhật dữ liệu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(VoiceControl.this, "Dữ liệu được cập nhật", Toast.LENGTH_SHORT).show();
                 SharedPreferences.Editor edt_shared_preferences = sharedPreferences.edit();
 
                 // process 3 topics
