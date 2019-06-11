@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">HandyAC</string>
     <string name="welcome">Xin chào</string>
-    <string name="pressMicro">Nhấn biểu tượng micro dưới đây để ra lệnh bằng giọng nói</string>
+    <string name="pressMicro">Nhấn biểu tượng micro dưới đây để điều khiển bằng giọng nói</string>
     <string name="state">Trạng thái điều hòa trong phòng bạn hiện tại</string>
     <string name="ac_temperature">Nhiệt độ điều hòa: </string>
     <string name="real_temperature">Nhiệt độ thực tế trong phòng: </string>
@@ -13,5 +13,6 @@
     <string name="server">Địa chỉ Server URI đang sử dụng: </string>
     <string name="topic">Địa chỉ bạn muốn nhận dữ liệu: </string>
     <string name="update">Cập nhật</string>
+    <string name="MAC">68:C6:3A:C2:CC:61</string>
     <string name="null_string">null</string>
 </resources>

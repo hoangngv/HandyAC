@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,7 @@ public class VoiceControl extends AppCompatActivity {
 
     TextView textView, appendWelcome, currentTemperature, roomTemperature, roomHumidity, humanDetection;
     ImageButton micButton;
+    ImageView airConditionerIcon;
     int SPEECH_RECOGNITION_CODE = 199;
     String inputCommand = "";
 
@@ -73,6 +75,7 @@ public class VoiceControl extends AppCompatActivity {
         // mapping
         textView = findViewById(R.id.mic);
         micButton = findViewById(R.id.micCommand);
+        airConditionerIcon = findViewById(R.id.iconAC);
         appendWelcome = findViewById(R.id.wc);
         currentTemperature = findViewById(R.id.ac_temp_value);
         roomTemperature = findViewById(R.id.real_temp_value);
@@ -208,6 +211,14 @@ public class VoiceControl extends AppCompatActivity {
                 } else {
                     Toast.makeText(VoiceControl.this, "Thiết bị không tương thích", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        // when AC icon is clicked
+        airConditionerIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openInformationDialog();
             }
         });
     }
@@ -379,5 +390,10 @@ public class VoiceControl extends AppCompatActivity {
 
     public static String intToHexString(int n){
         return "0x" + Integer.toHexString(n);
+    }
+
+    public void openInformationDialog() {
+        InformationDialog infoDialog = new InformationDialog();
+        infoDialog.show(getSupportFragmentManager(), "MAC dialog");
     }
 }
