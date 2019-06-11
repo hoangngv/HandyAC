@@ -210,7 +210,7 @@
 
     <TextView
         android:id="@+id/mic"
-        android:layout_width="293dp"
+        android:layout_width="210dp"
         android:layout_height="47dp"
         android:gravity="center"
         android:text="@string/pressMicro"
